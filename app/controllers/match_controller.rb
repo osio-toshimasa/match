@@ -7,16 +7,17 @@ class MatchController < ApplicationController
   end
 
   def create
-    #@post = Post.find(params[:id])
+
+
+    value = Rails.cache.fetch("/match/#{params[:id]}", expired_in: 1.hour) do
+      params[:name]
+    end
 
     render json: {
-      id: params[:id]
+      id: 1,
+      name: value
     }
 
-    # メモリキャッシュ
-    # if stale?(last_modified: @post.updated_at)
-    #   render json: @post
-    # end
   end
 
 
